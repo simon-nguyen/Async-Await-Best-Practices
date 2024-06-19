@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="GoComics.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+       xmlns:routes="clr-namespace:GoComics.Core.Routings;assembly=GoComics.Core"
+       xmlns:views="clr-namespace:GoComics.Views"
+       xmlns:local="clr-namespace:GoComics"
+       Title="GoComics">
+
+  <Shell.BackButtonBehavior>
+    <BackButtonBehavior TextOverride="" />
+  </Shell.BackButtonBehavior>
+
+  <Shell.Behaviors>
+
+  </Shell.Behaviors>
+
+  <FlyoutItem>
+    <ShellContent Route="{x:Static routes:WellknowRoutes.LoginRoute}"
+                  ContentTemplate="{DataTemplate views:LoginPage}" />
+  </FlyoutItem>
+
+  <TabBar Route="{x:Static routes:WellknowRoutes.MainRoute}">
+    <ShellContent
+      Title="Comics"
+      ContentTemplate="{DataTemplate local:MainPage}"
+      Route="{x:Static routes:WellknowRoutes.ComicsRoute}" />
+  </TabBar>
+  
+</Shell>

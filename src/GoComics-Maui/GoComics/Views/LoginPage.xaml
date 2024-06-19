@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<v:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:v="clr-namespace:GoComics.Core.Views;assembly=GoComics.Core"
+             x:Class="GoComics.Views.LoginPage"
+             Title="LoginPage">
+  <VerticalStackLayout>
+    <Label 
+            Text="Login"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+  </VerticalStackLayout>
+</v:ContentPageBase>

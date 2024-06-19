@@ -1,14 +1,10 @@
 ﻿using GoComics.Core.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
-namespace GoComics.Core.Services
+namespace GoComics.Core.Services;
+
+public interface IGoComicsService
 {
-    public interface IGoComicsService
-    {
-        IAsyncEnumerable<ComicTileModel> GetAllComicsAsync(CancellationToken cancellationToken = default);
-    }
+    IAsyncEnumerable<ComicTileModel> GetAllComicsAsync(CancellationToken cancellationToken = default);
 }

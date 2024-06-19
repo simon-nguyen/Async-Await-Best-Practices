@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<v:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:GoComics.Core.Models;assembly=GoComics.Core"
+             xmlns:v="clr-namespace:GoComics.Core.Views;assembly=GoComics.Core"
+             xmlns:vm="clr-namespace:GoComics.Core.ViewModels;assembly=GoComics.Core"
+             x:Class="GoComics.MainPage"
+             x:DataType="{x:Type vm:MainViewModel}">
+  <Grid RowDefinitions="Auto, *" RowSpacing="6">
+    <HorizontalStackLayout>
+      <Button Command="{Binding CancelCommand}" Text="Cancel" />
+      <Label Text="{Binding StatusText}" />
+    </HorizontalStackLayout>
+    
+    <ScrollView Grid.Row="1">
+      <CollectionView ItemsSource="{Binding Path=ComicCollection}">
+        <CollectionView.EmptyView>
+          <Label Text="No comics found."
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center" />
+        </CollectionView.EmptyView>
+        <CollectionView.ItemsLayout>
+          <GridItemsLayout Orientation="Vertical" Span="{OnIdiom 2, Desktop=4}" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+          <DataTemplate x:DataType="{x:Type m:ComicTileModel}">
+            <Grid Padding="6">
+              <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                <Frame.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding TapComicTileCommand, Source={RelativeSource Mode=FindAncestorBindingContext}}"
+                                        CommandParameter="{Binding .}" />
+                </Frame.GestureRecognizers>
+                <Grid ColumnDefinitions="125,*" ColumnSpacing="6">
+                  <Image WidthRequest="125" HeightRequest="125" Aspect="AspectFit" Source="{Binding AvatarUrl}" />
+                  <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                    <Label Text="{Binding Title}" Style="{StaticResource Headline}" />
+                    <Label Text="{Binding Author}" Style="{StaticResource SubHeadline}" />
+                  </VerticalStackLayout>
+                </Grid>
+              </Frame>
+            </Grid>
+
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+    </ScrollView>
+
+    <ActivityIndicator Grid.Row="1"
+                       IsVisible="{Binding IsBusy}"
+                       IsRunning="{Binding IsBusy}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="CenterAndExpand" />
+  </Grid>
+</v:ContentPageBase>

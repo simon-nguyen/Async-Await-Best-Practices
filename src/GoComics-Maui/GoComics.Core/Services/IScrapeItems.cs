@@ -1,7 +1,6 @@
-using HtmlAgilityPack;
-using System.Collections.Generic;
+﻿using HtmlAgilityPack;
 
-namespace GoComics.Core;
+namespace GoComics.Core.Services;
 
 public interface IScrapeItems<T>
 {

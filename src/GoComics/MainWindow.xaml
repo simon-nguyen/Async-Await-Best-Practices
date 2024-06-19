@@ -6,32 +6,49 @@
         xmlns:local="clr-namespace:GoComics"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-  <Grid>
-    <ListView ItemsSource="{Binding Path=ComicsCollection}">
-      <ListView.ItemsPanel>
-        <ItemsPanelTemplate>
-          <VirtualizingStackPanel />
-        </ItemsPanelTemplate>
-      </ListView.ItemsPanel>
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <Border BorderThickness="1" BorderBrush="Blue">
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".2*" />
-                <ColumnDefinition Width="6" />
-                <ColumnDefinition Width="*" />
-              </Grid.ColumnDefinitions>
+  <DockPanel LastChildFill="True">
+    
+    <ToolBar DockPanel.Dock="Top">
+      <Button Command="{Binding Path=CancelCommand}">Cancel</Button>
+    </ToolBar>
+    
+    <StatusBar DockPanel.Dock="Bottom">
+      <TextBlock Text="{Binding Path=StatusText}" />
+    </StatusBar>
+    
+    <Grid>
+      <ListView ItemsSource="{Binding Path=ComicsCollection, IsAsync=True}"
+            IsSynchronizedWithCurrentItem="True"
+            VirtualizingPanel.IsContainerVirtualizable="True"
+            VirtualizingPanel.IsVirtualizing="True"
+            VirtualizingPanel.IsVirtualizingWhenGrouping="True">
+        <ListView.ItemsPanel>
+          <ItemsPanelTemplate>
+            <UniformGrid Columns="3" />
+          </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <Border BorderThickness="1" BorderBrush="Blue">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width=".2*" />
+                  <ColumnDefinition Width="6" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-              <Image Grid.Column="0" />
-              <StackPanel>
-                <TextBlock Text="{Binding Path=Title}" />
-                <TextBlock Text="{Binding Path=Author}" />
-              </StackPanel>
-            </Grid>
-          </Border>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </Grid>
+                <Image Grid.Column="0" />
+                <StackPanel>
+                  <TextBlock Text="{Binding Path=Title}" />
+                  <TextBlock Text="{Binding Path=Author}" />
+                </StackPanel>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </Grid>
+    
+  </DockPanel>
+  
 </Window>
