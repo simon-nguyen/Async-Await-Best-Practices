@@ -28,8 +28,9 @@ public class ComicTilesScrapingStrategy : IScrapeItems<ComicTileModel>
             var comic = new ComicTileModel(
                 titleNode is null ? string.Empty : titleNode.InnerText,
                 byAuthorNode is null ? string.Empty : byAuthorNode.InnerText,
+                row.GetAttributeValue("href", null),
                 string.Empty,
-                string.Empty);
+                imageUrlNode?.GetAttributeValue("src", null));
 
             return comic;
         });

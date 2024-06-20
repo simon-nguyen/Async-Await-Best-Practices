@@ -58,8 +58,8 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-        //builder.Services.AddHttpClient<GoComicsService>(client => client.BaseAddress = new Uri("http://localhost"));
-        builder.Services.AddHttpClient<GoComicsService>();
+        builder.Services.AddHttpClient<GoComicsService>("Comic", client => client.BaseAddress = new Uri("https://www.gocomics.com/"));
+        builder.Services.AddHttpClient<ImageDownloadService>("ImageDownload");
 
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<LoginViewModel>();

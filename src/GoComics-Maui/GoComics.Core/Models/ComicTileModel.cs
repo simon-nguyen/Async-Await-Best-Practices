@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace GoComics.Core.Models;
 
-public record ComicTileModel(string Title, string Author, string PublishDateString, string AvatarUrl)
+public record ComicTileModel(string Title, string Author, string ComicUri, string PublishDateString, string? AvatarUrl)
 {
 }

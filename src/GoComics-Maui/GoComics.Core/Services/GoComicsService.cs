@@ -11,7 +11,8 @@ public class GoComicsService(HttpClient _httpClient)
 
     public IAsyncEnumerable<ComicTileModel> GetAllComicsAsync(CancellationToken cancellationToken = default)
     {
-        var strategy = new ComicTilesScrapingStrategy("https://www.gocomics.com/comics/a-to-z/");
+        string key = "a-to-z";
+        var strategy = new ComicTilesScrapingStrategy(key);
 
         return GetItemsAsync(strategy, cancellationToken);
     }
@@ -38,10 +39,8 @@ public class GoComicsService(HttpClient _httpClient)
 
         foreach (T item in scrapingStrategy.Scrape(html))
         {
-            //await item.DownloadAvatarAsync().ConfigureAwait(false);
             if (cancellationToken.IsCancellationRequested) yield break;
 
-            await Task.Delay(150, cancellationToken);
             yield return item;
         }
     }

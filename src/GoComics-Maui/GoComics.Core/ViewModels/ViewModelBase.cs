@@ -61,6 +61,22 @@ public partial class ViewModelBase : ObservableObject, IViewModel
         }
     }
 
+    protected async ValueTask<T> SetIsBusyFor<T>(Func<ValueTask<T>> action)
+    {
+        Interlocked.Increment(ref _isBusyIndicator);
+        OnPropertyChanged(nameof(IsBusy));
+
+        try
+        {
+            return await action();
+        }
+        finally
+        {
+            Interlocked.Decrement(ref _isBusyIndicator);
+            OnPropertyChanged(nameof(IsBusy));
+        }
+    }
+
     #region IQueryAttributable
     public virtual void ApplyQueryAttributes(IDictionary<string, object> query)
     {
