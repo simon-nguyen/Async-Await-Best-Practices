@@ -27,8 +27,6 @@ public static class MauiProgram
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<INavigationService, Services.NavigationService>();
 
-        //builder.Services.AddSingleton<AppShell>();
-
 #if DEBUG
         builder.Services.AddKeyedSingleton<HttpMessageHandler>("DebugHttpMessageHandler", (services, key) =>
         {

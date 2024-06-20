@@ -3,20 +3,20 @@ using GoComics.Core.Routings;
 using GoComics.Core.Services;
 using GoComics.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.ApplicationModel;
 
 namespace GoComics;
 
 public partial class App : Application
 {
-    private readonly ISettingsService _settingsService;
     private readonly INavigationService _navigationService;
+    private readonly ILogger<App> _logger;
 
-    public App(ISettingsService settingsService
-        , INavigationService navigationService)
+    public App(INavigationService navigationService, ILoggerFactory loggerFactory)
     {
-        _settingsService = settingsService;
         _navigationService = navigationService;
+        _logger = loggerFactory.CreateLogger<App>();
 
         InitializeComponent();
 
@@ -25,7 +25,8 @@ public partial class App : Application
             // TODO: handle when this is the first time the app launches
         }
 
-        MainPage = new AppShell(navigationService);
+        var shellLogger = loggerFactory.CreateLogger<AppShell>();
+        MainPage = new AppShell(navigationService, shellLogger);
     }
 
     protected override void OnStart()
