@@ -57,6 +57,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\gocomics_400x400.png" />
+	  <None Remove="Resources\Images\gocomics_gray_400x400.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.60" />
@@ -66,6 +71,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\GoComics.Core\GoComics.Core.csproj" />
+	  <ProjectReference Include="..\GoComics.Persistence.SQLite\GoComics.Persistence.SQLite.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -73,6 +79,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Templates\ComicTemplate.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

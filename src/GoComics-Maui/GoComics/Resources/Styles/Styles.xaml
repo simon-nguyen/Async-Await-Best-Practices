@@ -4,7 +4,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <Style TargetType="ActivityIndicator">
+  <x:String x:Key="FilterIcon">&#xf0b0;</x:String>
+
+  <!--Color="{AppThemeBinding Dark={StaticResource DarkFontColor},
+                        Light={StaticResource LightFontColor}}"-->
+  <FontImageSource
+        x:Key="FilterIconForTitleImageSource"
+        FontFamily="FontAwesome-Solid"
+        Glyph="{StaticResource FilterIcon}"
+        Size="22" />
+  
+  <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
 

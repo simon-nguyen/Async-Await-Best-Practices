@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using GoComics.Core.Services;
 using GoComics.Core.ViewModels;
+using GoComics.Persistence.SQLite;
 using GoComics.Views;
 using Microsoft.Extensions.Logging;
 
@@ -23,9 +24,17 @@ public static class MauiProgram
                 essentials.AddAppAction(WellknownAppActions.ViewProfileAction).OnAppAction(App.HandleAppActions);
             });
 
+        // Persistence - SQLite
+        builder.Services.AddSingleton<ISQLiteConnectionFactory, SQLiteAsyncConnectionFactory>();
+        builder.Services.AddSingleton<ComicStore>();
 
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<INavigationService, Services.NavigationService>();
+
+        builder.Services.AddHttpClient("Comics", httpClient => httpClient.BaseAddress = new Uri("https://www.gocomics.com/comics/"));
+        builder.Services.AddHttpClient("ImageDownload");
+
+        builder.Services.AddSingleton<GoComicsService>();
 
 #if DEBUG
         builder.Services.AddKeyedSingleton<HttpMessageHandler>("DebugHttpMessageHandler", (services, key) =>
@@ -57,9 +66,6 @@ public static class MauiProgram
 
         builder.Logging.AddDebug();
 #endif
-
-        builder.Services.AddHttpClient<GoComicsService>("Comic", client => client.BaseAddress = new Uri("https://www.gocomics.com/"));
-        builder.Services.AddHttpClient<ImageDownloadService>("ImageDownload");
 
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<LoginViewModel>();

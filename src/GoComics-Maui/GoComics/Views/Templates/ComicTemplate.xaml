@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:GoComics.Core.Models;assembly=GoComics.Core"
+             x:Class="GoComics.Views.Templates.ComicTemplate"
+             x:DataType="{x:Type models:ComicTileModel}">
+  <ContentView.Resources>
+    <Style x:Key="ComicNameStyle" TargetType="{x:Type Label}">
+      <Setter Property="FontAttributes" Value="Bold" />
+      <Setter Property="FontSize" Value="Medium" />
+      <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+      <Setter Property="Margin" Value="0, 12, 0, 6" />
+    </Style>
+    <Style x:Key="ComicAuthorStyle" TargetType="{x:Type Label}">
+      <Setter Property="FontSize" Value="Subtitle" />
+      <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+      <Setter Property="Margin" Value="0, 12, 0, 6" />
+    </Style>
+  </ContentView.Resources>
+
+  <ContentView.Content>
+    <Grid Margin="0" Padding="12">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="150" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      
+      <Border Grid.Column="0"
+              Margin="16"
+              HeightRequest="125" WidthRequest="125"
+              StrokeShape="RoundRectangle 8,8,8,8"
+              StrokeThickness="1"
+              VerticalOptions="Start">
+        <Image Aspect="AspectFit">
+          <Image.Source>
+            <UriImageSource CachingEnabled="True" CacheValidity="01:00:00"
+                            Uri="{Binding AvatarUrl, Mode=OneTime, TargetNullValue='gocomics_gray_400x400.png'}" />
+          </Image.Source>
+        </Image>
+      </Border>
+
+      <VerticalStackLayout Grid.Column="1">
+        <Label Style="{StaticResource ComicNameStyle}"
+               MaxLines="2"
+               Text="{Binding Title, Mode=OneTime, Converter={StaticResource ToUpperConverter}}"
+               VerticalTextAlignment="Center" />
+        <Label Style="{StaticResource ComicAuthorStyle}"
+               MaxLines="2"
+               Text="{Binding Author, Mode=OneTime}"
+               VerticalTextAlignment="Center" />
+      </VerticalStackLayout>
+    </Grid>
+  </ContentView.Content>
+
+  <VisualStateManager.VisualStateGroups>
+    <VisualStateGroup Name="CommonStates">
+      <VisualState Name="Selected">
+        <VisualState.Setters>
+          <Setter Property="BackgroundColor" Value="Transparent" />
+        </VisualState.Setters>
+      </VisualState>
+    </VisualStateGroup>
+  </VisualStateManager.VisualStateGroups>
+</ContentView>

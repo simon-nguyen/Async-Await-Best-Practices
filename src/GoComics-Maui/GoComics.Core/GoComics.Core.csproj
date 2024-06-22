@@ -21,12 +21,9 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.60" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.60" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\GoComics.LookAndFeel\GoComics.LookAndFeel.csproj" />
 	</ItemGroup>
 
 </Project>

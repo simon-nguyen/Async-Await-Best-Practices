@@ -5,10 +5,8 @@ using System.Runtime.CompilerServices;
 namespace GoComics.Core.Services;
 
 // All the code in this file is included in all platforms.
-public class GoComicsService(HttpClient _httpClient)
+public class GoComicsService(IHttpClientFactory _httpClientFactory)
 {
-    private const int MaxBatchSize = 10;
-
     public IAsyncEnumerable<ComicTileModel> GetAllComicsAsync(CancellationToken cancellationToken = default)
     {
         string key = "a-to-z";
@@ -19,11 +17,13 @@ public class GoComicsService(HttpClient _httpClient)
 
     private async IAsyncEnumerable<T> GetItemsAsync<T>(IScrapeItems<T> scrapingStrategy, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
+        var httpClient = _httpClientFactory.CreateClient("Comics");
         var request = new HttpRequestMessage(HttpMethod.Get, scrapingStrategy.Name);
         HttpResponseMessage response;
         try
         {
-            response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+            response = await httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
         }
         catch (Exception)
@@ -35,12 +35,9 @@ public class GoComicsService(HttpClient _httpClient)
         var html = new HtmlDocument();
         html.Load(responseStream);
 
-        var batch = new List<T>();
-
         foreach (T item in scrapingStrategy.Scrape(html))
         {
             if (cancellationToken.IsCancellationRequested) yield break;
-
             yield return item;
         }
     }

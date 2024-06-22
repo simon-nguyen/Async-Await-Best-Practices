@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using GoComics.Core.Models;
 using GoComics.Core.Services;
-using GoComics.LookAndFeel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ public partial class ComicViewModel(
     private ComicTileModel _model = default!;
 
     [ObservableProperty]
-    private ImageSource _avatar = Images.GoComicsGray;
+    private ImageSource _avatar;
 
     public override async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
